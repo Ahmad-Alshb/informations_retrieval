@@ -1,0 +1,90 @@
+<!-- search_results.html -->
+
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<html>
+<head>
+    <title>Home - indexing settings</title>
+    <style>
+        /* CSS styles for the search bar */
+        div{   font: 20px sans-serif;}
+        .search-form {
+            margin-bottom: 20px;
+        }
+        .search-form input[type="text"] {
+            padding: 8px;
+            width: 355px;
+            height: 30px;
+          
+            font: 1em sans-serif;
+        }
+        .search-form button {
+            padding: 8px 15px;
+            background-color: #8e44e4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            height: 40px;
+            width:100px;
+        }
+
+        /* CSS styles for the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .selectmodel{
+          padding: 8px 15px;
+          margin:10px;
+        }
+        .selectm{
+          height: 40px;
+          width: 150px;
+          margin:10px;
+        }
+    </style>
+</head>
+<body>
+  <center>   <h1><strong>SIR601 Home Work</strong></h1></center><h2 style="text-align: left;"><a href="search">Search page</a></h2>
+  <div style="display: flex; border: 3px solid black; margin :auto auto" >
+  <div style="justify-content: center; margin :auto auto ; padding :150px; " >
+    <h1 style="color: #8e44e4;"><strong><center> indexing Setting</center></strong></h1>
+
+    <form class="search-form" method="post" action="index">
+      {%csrf_token %}
+        
+      <div class="selectmodel" style="justify-content: center; margin :auto auto ">
+        <input type="text" name="folder_path" required placeholder="Enter Files Folder path">
+   <br>
+      <span>The Wighting algorithm:</span> <select class="selectm" name="WAlg"> 
+        <option value="TF-IDF">TF-IDF</option>
+          <option value="Bag of words">Bag of words</option>
+          </select>
+<br>
+       <span>The Language:</span> 
+       <select class="selectm " name="language">
+        <option value="Arabic">Arabic</option>
+        <option value="English">English</option>
+      </select>
+       <br> <br><center><button type="submit" name="apply">Apply</button> </center>
+         
+         
+       </div>
+       
+ 
+    </form>
+
+   
+  </div>
+  </div>
+</body>
+</html>

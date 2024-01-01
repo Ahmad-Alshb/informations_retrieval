@@ -1,0 +1,161 @@
+<!-- search_results.html -->
+
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<html>
+<head>
+    <title>Search Page and results</title>
+    <style>
+        /* CSS styles for the search bar */
+        div{   font: 20px sans-serif;}
+        .search-form {
+            margin-bottom: 20px;
+        }
+        .search-form option{
+          font: 20px ;
+          
+        }
+        .search-form input[type="text"] {
+            padding: 8px;
+            width: 600px;
+            height: 50px;
+            border-radius: 20px;
+            font: 1em sans-serif;
+        }
+        .search-form button {
+            padding: 8px 15px;
+            background-color: #8e44e4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            height: 40px;
+            width:100px;
+        }
+
+        /* CSS styles for the table */
+        table {
+            border-collapse: collapse;
+            width: 35%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            font-size: 20px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .selectmodel{
+          padding: 8px 15px;
+          margin:10px;
+        }
+        .selectm{
+          height: 50px;
+          width: 350px;
+        }
+       select, option{   padding: 2px;
+            font-size: 20px;}
+        .area{
+        position: absolute;
+        right:100px;
+        
+        }
+        .open{
+        position: absolute;
+        right:300px;
+        top:-25px;
+        }
+      
+    </style>
+</head>
+<body>  <center>   <h1><strong>SIR601 Home Work</strong></h1></center>
+    <h2><a href="index">indexing page</a></h2>
+    <h2 style="color: greenyellow;">{{message}}</h2>
+    <h3><strong>Indexing setting selected</strong></h3>
+  {% if folder_path%}
+ 
+  <table>
+      <thead>
+          <tr> <th>Folder Path</th>
+            <th>Num of files</th>
+              <th>Language</th>
+              <th>Indexing Algorithm</th>
+
+             
+          </tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+              <td>{{ folder_path}}</td>
+              <td>{{count}}</td>
+              <td>{{lang }}</td>
+              <td>{{ In_alg }}</td>
+              
+              
+          </tr>
+      
+      </tbody>
+  </table>
+  {% else %}
+  <p>No Setting Selected</p>
+  {% endif %}
+
+  <div style="display: flex; border: 3px solid black; margin :auto auto" >
+  <div style="justify-content: center; margin :auto auto ; padding :150px; " >
+    <h1 style="color: #8e44e4;"><strong><center>Search</center></strong></h1>
+    
+
+    <form class="search-form" method="GET" action="search">
+        {%csrf_token %}
+        <input type="text" name="query"  required placeholder="Enter your search query">
+   
+        
+      <div class="selectmodel" style="justify-content: center; margin :auto auto ">
+        <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="white"  >
+          <path d="M21.707,20.293l-4.535-4.535C18.859,13.059,20,10.632,20,8c0-4.418-3.582-8-8-8S4,3.582,4,8s3.582,8,8,8c2.632,0,5.059-1.141,6.758-2.965l4.535,4.535c0.391,0.391,1.023,0.391,1.414,0C22.098,21.316,22.098,20.684,21.707,20.293z M10,16c-4.418,0-8-3.582-8-8s3.582-8,8-8s8,3.582,8,8S14.418,16,10,16z"/>
+        </svg>
+        </button> 
+       <span>Search model</span> <select class="selectm" name="algorithm"> <option value="boolean">Boolean Model</option>
+        <option value="extended_boolean">Extended boolean Model</option>
+          <option value="vector_model_search">Vector Model</option>
+                 
+      </select>
+      
+    </form>
+    <div class="area">  <input type="submit" class="open" name="opendoc" value="open document">
+        <br> <br><textarea class="txtarea" name="resulte" cols="50" rows="15"></textarea></div>
+
+    <h2>Search Results found in  {{result_count}}  files</h2>
+
+  {% if results %}
+    <table>
+        <thead>
+            <tr>
+                <th>Source</th>
+                <th>Content</th>
+                
+                <th>Rank</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.file_name }}</td>
+                <td>{{ result.content|slice:"20:100"  }}</td>
+               
+                <td>{{ result.title }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No results found.</p>
+    {% endif %}
+  </div>
+ 
+  </div>
+</body>
+</html>
